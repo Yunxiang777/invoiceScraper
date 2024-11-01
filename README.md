@@ -1,50 +1,40 @@
-# React + TypeScript + Vite
+# 發票對獎系統
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 簡介
 
-Currently, two official plugins are available:
+這是一個使用 React 和 TypeScript 開發的統一發票對獎系統。該系統旨在提供一個用戶友好的界面，允許用戶輸入發票號碼並快速檢查是否中獎。系統利用爬蟲包從指定的 API 獲取最新的發票數據，並使用 Tailwind CSS 進行美觀的樣式設計。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 網址連結
+https://invoicescraper.netlify.app/
 
-## Expanding the ESLint configuration
+## 技術棧
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **前端**: 
+  - **React**: 用於構建用戶界面的 JavaScript 庫。
+  - **TypeScript**: 增加了靜態類型檢查的 JavaScript 超集，提升開發效率與代碼可維護性。
+  
+- **樣式**: 
+  - **Tailwind CSS**: 低層次 CSS 框架，通過實用的類來快速構建自定義設計。
+  
+- **後端**: 
+  - **Netlify Functions**: 用於處理後端邏輯的無伺服器架構，方便快速部署和擴展。
+  
+- **爬蟲**: 
+  - 使用爬蟲包進行數據抓取，確保可以獲取最新的發票信息。
 
-- Configure the top-level `parserOptions` property like this:
+## 依賴包
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+以下是項目中使用的主要 npm 包：
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- `axios`: 用於發送 HTTP 請求，獲取發票數據。
+- `lucide-react`: 提供的圖標庫，用於增強用戶界面的視覺效果。
+- `tailwindcss`: 用於樣式設計的 CSS 框架。
+- `vite`: 用於快速開發和構建的現代前端工具。
+- `cheerio`: 爬蟲用具依賴包
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## 環境變數
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+為了能夠在本地環境和生產環境之間自動切換 API，請設置以下環境變數：
+
+```bash
+REACT_APP_CRAWLER_API_URL=http://localhost:8888/.netlify/functions/crawler
