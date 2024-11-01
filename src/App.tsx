@@ -1,7 +1,6 @@
-// import { useState } from 'react';
 import { useState, useEffect } from 'react';
 import { Calculator, Receipt, Trophy, AlertCircle } from 'lucide-react'; //圖標
-// import axios from 'axios';
+import axios from 'axios';
 
 //發票對獎期間的數據結構
 interface PeriodData {
@@ -23,37 +22,29 @@ function App() {
     firstPrize: ['73879556', '22315462', '91903003'],
   });
 
+  //獲取最新發票資料
   useEffect(() => {
-    setSelectedPeriod({
-      year: '113',
-      period: '01-02月',
-      specialPrize: '21981893',
-      grandPrize: '58612146',
-      firstPrize: ['73879556', '22315462', '91903003'],
-    });
-  }, [])
+    const fetchPeriodData = async () => {
+      try {
+        const response = await axios.get(import.meta.env.VITE_CRAWLER_API_URL);
+        console.log();
+        
+        const data = response.data;
+        
+        setSelectedPeriod({
+          year: data.year, //年
+          period: data.month, //月
+          specialPrize: data.prizes[0], //特別獎
+          grandPrize: data.prizes[1], //特獎
+          firstPrize: data.prizes.slice(2, 5), //頭獎
+        });
+      } catch (error) {
+        console.error("無法獲取數據:", error);
+      }
+    };
 
-  // 獲取最新發票資料
-  // useEffect(() => {
-  //   const fetchPeriodData = async () => {
-  //     try {
-  //       const response = await axios.get("http://localhost:3000/api/prize-numbers");
-  //       const data = response.data;
-
-  //       setSelectedPeriod({
-  //         year: data.year, //年
-  //         period: data.month, //月
-  //         specialPrize: data.prizes[0], //特別獎
-  //         grandPrize: data.prizes[1], //特獎
-  //         firstPrize: data.prizes.slice(2, 5), //頭獎
-  //       });
-  //     } catch (error) {
-  //       console.error("無法獲取數據:", error);
-  //     }
-  //   };
-
-  //   fetchPeriodData();
-  // }, []);
+    fetchPeriodData();
+  }, []);
 
   const checkPrize = () => {
     if (receipt.length !== 8) {
