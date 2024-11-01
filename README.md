@@ -1,11 +1,14 @@
 # 發票對獎系統
-
+![Logo](./public/logo.png)
 ## 簡介
 
 這是一個使用 React 和 TypeScript 開發的統一發票對獎系統。該系統旨在提供一個用戶友好的界面，允許用戶輸入發票號碼並快速檢查是否中獎。系統利用爬蟲包從指定的 API 獲取最新的發票數據，並使用 Tailwind CSS 進行美觀的樣式設計。
 
 ## 網址連結
 https://invoicescraper.netlify.app/
+
+## 部屬
+- Netlify
 
 ## 技術棧
 
