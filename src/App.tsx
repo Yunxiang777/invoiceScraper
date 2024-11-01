@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+// import { useState, useEffect } from 'react';
 import { Calculator, Receipt, Trophy, AlertCircle } from 'lucide-react'; //圖標
-import axios from 'axios';
+// import axios from 'axios';
 
 //發票對獎期間的數據結構
 interface PeriodData {
